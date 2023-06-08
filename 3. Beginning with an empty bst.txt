@@ -1,0 +1,210 @@
+
+// Begining with an empty binary search tree, construct a BST by inserting the values in the values in the order given after constructing.
+//  1) Insert new code
+//  2) Find number of nodes in longest path
+//  3) Min data found in the tree.....
+//  4) search the value....
+
+#include <iostream>
+using namespace std;
+
+class Node
+{
+
+    public:
+    int key;
+    Node *ln,*rn;
+};
+
+class Tree
+{
+    
+    public:
+    Node *root;
+    Node *creatTree(int key)
+    {
+        root = new Node;
+        root->key=key;
+        root->ln=NULL;
+        root->rn=NULL;
+        return root;
+    }
+void insertNode(int key,Node *root)
+{
+    Node *node =new Node();
+    node->key=key;
+    if(root->key>key)
+    {
+        if (root->ln==NULL)
+        {
+            root->ln=node;
+        }
+        
+        else
+        {
+            insertNode(key,root->ln);
+        }
+    }
+    
+    else if (root->key<key)
+    {
+        if (root->rn==NULL)
+        {
+            root->rn=node;
+        }
+
+        else
+        {
+            insertNode(key,root->rn);
+        }   
+    }
+    else{
+        cout<<"DUPLICATES are not allowed!!!";
+    }
+}
+void display(Node *root)
+{
+    if (root!=NULL)
+    {
+        display(root->ln);
+        cout<<root->key<<endl;
+        display(root->rn);
+    }
+    
+}
+
+void searchNode(int searchkey,Node *root)
+{
+    if (root->key==searchkey)
+    {
+        cout<<"Node found!!";
+    }
+
+    else if (root->key>searchkey)
+    {
+        if (root->ln==NULL)
+        {
+            cout<<"Key is not present in the Tree";
+        }
+        else
+        {
+            searchNode(searchkey,root->ln);
+        }
+    }
+    else if (root->key<searchkey)
+    {
+        if (root->rn==NULL)
+        {
+            cout<<"Key is not present in the Tree";
+        }
+        else
+        {
+            searchNode(searchkey,root->rn);
+        }
+    }
+
+    else
+    {
+        cout<<"No Node Present!!!";
+    }
+}
+
+int longestPath(Node *root){
+            if(root==NULL){
+                return 0;
+            }
+            else{
+                int Lstree=longestPath(root->ln);
+                int Rstree=longestPath(root->rn);
+                if(Lstree>Rstree){
+                    return(Lstree+1);
+                }
+                else{
+                    return(Rstree+1);
+                }
+            }
+        }
+        void displayMin(Node *root)
+        {
+            while(root->ln!=NULL)
+            {
+  root=root->ln;
+            }
+            cout<<"\nMinimum Data Value Present is:"<<root->key<<endl;
+        }
+
+        Node* swapNode(Node *root){
+            Node *temp;
+            if(root!=NULL){
+                temp=root->ln;
+                root->ln=root->rn;
+                root->rn=temp;
+                swapNode(root->ln);
+                swapNode(root->rn);
+        }}
+};
+int main()
+{
+    int choice,flag=0,key,searchkey;
+    Node *root;
+    Tree t1;
+    do{
+        cout<<"\n---------Operations---------"<<endl;
+        cout<<"1.ENTER NUMBER"<<endl;
+        cout<<"2.DISPLAY TREE"<<endl;
+        cout<<"3.SEARCH TREE"<<endl;
+        cout<<"4.THE LONGEST PATH"<<endl;
+        cout<<"5.THE MINIMUM VALUE"<<endl;
+        cout<<"6.SWAPPING THE NODES"<<endl;
+        cout<<"7.EXIT"<<endl;
+
+        cout<<"Enter your choice: "<<endl;
+        cin>>choice;
+        
+        switch (choice)
+        {
+            case 1:
+            cout<<"Enter your number: ";
+            cin>>key;
+            if(flag==0)
+            {
+                root=t1.creatTree(key);
+                flag=1;
+            }
+            else
+            {
+                t1.insertNode(key,root);
+            } 
+
+            cout<<"\nNode inserted into the Tree";
+            break;
+
+            case 2:
+            t1.display(root);
+            break;
+
+            case 3:
+            cout<<"\nEnter the value to be searched: "<<endl;
+            cin>>searchkey;
+            t1.searchNode(searchkey,root);
+            break;
+
+            case 4:
+            cout<<"The numbere of nodes in longest path: "<<t1.longestPath(root)<<endl;
+            break;
+            case 5:
+            t1.displayMin(root);
+            break;
+            case 6:
+            t1.swapNode(root);
+            cout<<"SWAPPED NEW LIST IS :";
+            t1.display(root);
+            break;
+            case 7:
+            exit(0);
+        }
+    }while (choice!=7);
+    return 0;
+}
+
+

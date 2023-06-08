@@ -1,0 +1,215 @@
+max = 20
+ 
+# Structure of Employee
+class employee:
+    def __init__(self):
+        self.name = ''
+        self.code = 0
+        self.designation = ''
+        self.salary = 0
+        self.age = 0
+ 
+num = 0
+emp = [employee() for i in range(max)]
+tempemp = [employee() for i in range(max)]
+sortemp = [employee() for i in range(max)]
+sortemp1 = [employee() for i in range(max)]
+ 
+# Function to build the given datatype
+def build():
+    global num, emp
+ 
+    print("Build The Table")
+    print("Maximum Entries can be", max)
+ 
+    num = int(input("Enter the number of Entries required: "))
+ 
+    if num > max:
+        print("Maximum number of Entries are 20")
+        num = 20
+ 
+    print("Enter the following data:")
+    for i in range(num):
+        emp[i].name = input("Name: ")
+        emp[i].code = int(input("Employee ID: "))
+        emp[i].designation = input("Designation: ")
+        emp[i].salary = int(input("Salary: "))
+        emp[i].age = int(input("Age: "))
+ 
+    showMenu()
+ 
+# Function to insert the data into
+# given data type
+def insert():
+    global num, emp
+ 
+    if num < max:
+        i = num
+        num += 1
+ 
+        print("Enter the information of the Employee:")
+        emp[i].name = input("Name: ")
+        emp[i].code = int(input("Employee ID: "))
+        emp[i].designation = input("Designation: ")
+        emp[i].salary = int(input("Salary: "))
+        emp[i].age = int(input("Age: "))
+    else:
+        print("Employee Table Full")
+ 
+    showMenu()
+ 
+# Function to delete record at index i
+def deleteIndex(i):
+    global num, emp
+ 
+    for j in range(i, num - 1):
+        emp[j].name = emp[j + 1].name
+        emp[j].code = emp[j + 1].code
+        emp[j].designation = emp[j + 1].designation
+        emp[j].salary = emp[j + 1].salary
+        emp[j].age = emp[j + 1].age
+ 
+# Function to delete record
+def deleteRecord():
+    global num, emp
+ 
+    code = int(input("Enter the Employee ID to Delete Record: "))
+ 
+    for i in range(num):
+        if emp[i].code == code:
+            deleteIndex(i)
+            num -= 1
+            break
+ 
+    showMenu()
+ 
+def searchRecord():
+    global num, emp
+ 
+    code = int(input("Enter the Employee ID to Search Record: "))
+ 
+    for i in range(num):
+        # If the data is found
+        if emp[i].code == code:
+            print("Name:", emp[i].name)
+            print("Employee ID:", emp[i].code)
+            print("Designation:", emp[i].designation)
+            print("Salary:", emp[i].salary)
+            print("Age:", emp[i].age)
+            break
+ 
+    showMenu()
+ 
+# Function to show menu
+def showMenu():
+    print("-------------------------Employee Management System-------------------------\n")
+    print("Available Options:\n")
+    print("Build Table         (1)")
+    print("Insert New Entry    (2)")
+    print("Delete Entry        (3)")
+    print("Search a Record     (4)")
+    print("Exit                (5)")
+ 
+    # Input Options
+    option = int(input())
+ 
+    # Call
+    if option == 1:
+        build()
+    elif option == 2 :
+        insert()
+    elif option == 3 :
+        deleteRecord()
+    elif option == 4 :
+        searchRecord()
+    elif option == 5 :
+        return
+    else:
+        print("Expected Options")
+        print("are 1/2/3/4/5")
+        showMenu()
+# Driver code
+showMenu()
+    
+***************************************************************************************************************************************
+                                                      Output
+***************************************************************************************************************************************
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Try the new cross-platform PowerShell https://aka.ms/pscore6
+
+PS C:\Users\HP\Desktop>  & 'C:\Users\HP\AppData\Local\Microsoft\WindowsApps\python3.10.exe' 'c:\Users\HP\.vscode\extensions\ms-python.python-2023.8.0\pythonFiles\lib\python\debugpy\adapter/../..\debugpy\launcher' '10142' '--' 'c:\Users\HP\Desktop\p12.py'
+-------------------------Employee Management System-------------------------
+
+Available Options:
+
+Build Table         (1)
+Insert New Entry    (2)
+Delete Entry        (3)
+Search a Record     (4)
+Exit                (5)
+1
+Build The Table
+Maximum Entries can be 20
+Enter the number of Entries required: 1
+Enter the following data:
+Name: Girish
+Employee ID: 123451
+Designation: Eng
+Salary: 100000
+Age: 19
+-------------------------Employee Management System-------------------------
+
+Available Options:
+
+Build Table         (1)
+Insert New Entry    (2)
+Delete Entry        (3)
+Search a Record     (4)
+Exit                (5)
+2
+Enter the information of the Employee:
+Name: Yash
+Employee ID: 123452
+Designation: Eng
+Salary: 100000
+Age: 20
+-------------------------Employee Management System-------------------------
+
+Available Options:
+
+Build Table         (1)
+Insert New Entry    (2)
+Delete Entry        (3)
+Search a Record     (4)
+Exit                (5)
+3
+Enter the Employee ID to Delete Record: 123452
+-------------------------Employee Management System-------------------------
+
+Available Options:
+
+Build Table         (1)
+Insert New Entry    (2)
+Delete Entry        (3)
+Search a Record     (4)
+Exit                (5)
+4
+Enter the Employee ID to Search Record: 123451
+Name: Girish
+Employee ID: 123451
+Designation: Eng
+Salary: 100000
+Age: 19
+-------------------------Employee Management System-------------------------
+
+Available Options:
+
+Build Table         (1)
+Insert New Entry    (2)
+Delete Entry        (3)
+Search a Record     (4)
+Exit                (5)
+5
+PS C:\Users\HP\Desktop>
